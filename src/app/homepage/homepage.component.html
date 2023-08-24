@@ -1,0 +1,218 @@
+
+
+  <link
+  href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+  rel="stylesheet"
+/>
+
+  <!-- component -->
+<div class="bg-white p-8 rounded-md w-full">
+	<div class=" flex items-center justify-between pb-6">
+		<div>
+			<h2 class="text-gray-600 font-bold">Products</h2>
+			<span class="text-xs">All products</span>
+		</div>
+		<div class="flex items-center justify-between">
+			<div class="flex bg-gray-50 items-center p-2 rounded-md">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
+					fill="currentColor">
+					<path fill-rule="evenodd"
+						d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+						clip-rule="evenodd" />
+				</svg>
+				<input class="bg-gray-50 outline-none ml-1 block " type="text" name="" id="" placeholder="search...">
+          </div>
+				<div class="lg:ml-40 ml-10 space-x-8">
+					<button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-bold tracking-wide cursor-pointer" 
+          (click)="openDialog()">Add Product</button>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+				<div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+					<table class="min-w-full leading-normal">
+						<thead>
+							<tr>
+								<th
+									class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600  uppercase tracking-wider">
+									ID
+								</th>
+								<th
+									class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+									NAME
+								</th>
+								<th
+									class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+									Brand
+								</th>
+								<th
+									class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+									Price
+								</th>
+                				<th
+									class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">
+									Action
+								</th>
+							</tr>
+						</thead>
+						<tbody *ngFor="let item of productDataList">
+							<tr>
+								<td  class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+												<p class="text-gray-900 whitespace-no-wrap">
+													{{item.productid}}
+												</p>
+								</td>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+									<p class="text-gray-900 whitespace-no-wrap">{{item.productname}}</p>
+								</td>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+									<p class="text-gray-900 whitespace-no-wrap">
+										{{item.brandname}}
+									</p>
+								</td>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+									<p class="text-gray-900 whitespace-no-wrap">
+										{{item.price | currency: "VND" }}
+									</p>
+								</td>
+                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <a (click)="populateform(item)" 
+                    class="text-yellow-400 hover:text-gray-100 mx-2">
+                    <i class="material-icons-outlined text-base">edit</i>
+                  </a>
+                  <a
+                    (click)="deleteProduct(item.productid)"
+                    class="text-red-400 hover:text-gray-100 ml-2"
+                  >
+                    <i class="material-icons-round text-base">delete_outline</i>
+                  </a>
+                </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			  
+		</div>
+	</div>
+	  
+	  <div *ngIf="visible" class="md:flex md:justify-center mb-6">
+		<div class="w-3/12">
+			<form #form="ngForm">
+				{{form.value | json}}
+				<div class="form-group mb-6">
+				  <input #ProductID [(ngModel)]="product.formdata.productid"    type="text" name="ProductID"   placeholder="Product ID" class="form-control block
+					w-full
+					px-3
+					py-1.5
+					text-base
+					font-normal
+					text-gray-700
+					bg-white bg-clip-padding
+					border border-solid border-gray-300
+					rounded
+					transition
+					ease-in-out
+					m-0
+					focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+					>
+				</div>
+				<div class="form-group mb-6">
+				  <input #ProductName [(ngModel)]="product.formdata.productname"  type="text" name="ProductName"   placeholder="Product Name" class="form-control block
+					w-full
+					px-3
+					py-1.5
+					text-base
+					font-normal
+					text-gray-700
+					bg-white bg-clip-padding
+					border border-solid border-gray-300
+					rounded
+					transition
+					ease-in-out
+					m-0
+					focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+					>
+				</div>
+				<div class="form-group mb-6">
+				  <input #BrandId [(ngModel)]="product.formdata.brandid"  type="text" name="BrandId"   placeholder="Brand Id" class="form-control block
+					w-full
+					px-3
+					py-1.5
+					text-base
+					font-normal
+					text-gray-700
+					bg-white bg-clip-padding
+					border border-solid border-gray-300
+					rounded
+					transition
+					ease-in-out
+					m-0
+					focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+					>
+				</div>
+				<div class="form-group mb-6">
+				  <input #Price [(ngModel)]="product.formdata.price"  type="text" name="Price"   placeholder="Price" class="form-control block
+					w-full
+					px-3
+					py-1.5
+					text-base
+					font-normal
+					text-gray-700
+					bg-white bg-clip-padding
+					border border-solid border-gray-300
+					rounded
+					transition
+					ease-in-out
+					m-0
+					focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+					>
+				</div>
+				<div class="inline-block min-w-full  rounded-lg overflow-hidden">
+					
+					<button (click)="onSubmit(form.value)" class="
+						w-4/12
+						px-6
+						py-2.5
+						bg-indigo-600
+						text-white
+						font-medium
+						text-xs
+						uppercase
+						rounded
+						shadow-md
+						hover:bg-indigo-600 hover:shadow-lg
+						focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+						active:bg-indigo-700 active:shadow-lg
+						transition
+						duration-150
+						ease-in-out">ADD
+					</button>
+					<button  class="
+						w-4/12
+						ease-in-out">
+					</button>
+					<button (click)="onUpdate(form.value)" class="
+						w-4/12
+						px-6
+						py-2.5
+						bg-indigo-600
+						text-white
+						font-medium
+						text-xs
+						uppercase
+						rounded
+						shadow-md
+						hover:bg-indigo-600 hover:shadow-lg
+						focus:bg-indigo-600 focus:shadow-lg focus:outline-none focus:ring-0
+						active:bg-indigo-700 active:shadow-lg
+						transition
+						duration-150
+						ease-in-out">update
+					</button>
+				</div>
+			  </form>
+		</div>
+	
+	  </div>
